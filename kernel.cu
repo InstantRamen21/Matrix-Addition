@@ -14,7 +14,7 @@ __global__ void matAdd(int dim, const float *A, const float *B, float* C) {
      ********************************************************************/
 
     int row = blockIdx.y * blockDim.y +threadIdx.y;
-    int col = blockIdx.y * blockDim.y +threadIdx.y;
+    int col = blockIdx.x * blockDim.x +threadIdx.x;
 
     if (row < dim && col < dim) {
 	int idx = row * dim + col;

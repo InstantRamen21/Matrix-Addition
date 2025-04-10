@@ -46,7 +46,7 @@ int main (int argc, char *argv[])
     printf("    A: %u x %u\n    B: %u x %u\n    C: %u x %u\n", matDim, matDim,
         matDim, matDim, matDim, matDim);
 
-    // Allocate device variables ----------------------------------------------
+    // Allocate device vx-addition-InstantRamen21ariables ----------------------------------------------
 
     printf("Allocating device variables..."); fflush(stdout);
     startTime(&timer);
