@@ -1,3 +1,5 @@
+Tony Lee
+
 How many total thread blocks do we use?
 We use ceiling division: [1000/16] = 63. 63 times 63 = 3969 blocks.
 
