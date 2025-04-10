@@ -29,7 +29,7 @@ void basicMatAdd(int dim, const float *A, const float *B, float *C)
 
     const unsigned int BLOCK_SIZE = TILE_SIZE;
 	
-    dim3 dim_block(BLOCK_SIZE);
+    dim3 dim_block(BLOCK_SIZE, BLOCK_SIZE);
     dim3 dim_grid((dim+BLOCK_SIZE-1) / BLOCK_SIZE, (dim+BLOCK_SIZE-1) / BLOCK_SIZE);
 
 	// Invoke CUDA kernel -----------------------------------------------------
