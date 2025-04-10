@@ -13,12 +13,15 @@ __global__ void matAdd(int dim, const float *A, const float *B, float* C) {
      *
      ********************************************************************/
 
-    /*************************************************************************/
-    // INSERT KERNEL CODE HERE
-        
-    /*************************************************************************/
+    int row = blockIdx.y * blockDim.y +threadIdx.y;
+    int col = blockIdx.y * blockDim.y +threadIdx.y;
 
-}
+    if (row < dim && col < dim) {
+	int idx = row * dim + col;
+	C[idx] = A[idx] + B[idx];
+	}
+} 
+        
 
 void basicMatAdd(int dim, const float *A, const float *B, float *C)
 {
@@ -26,17 +29,11 @@ void basicMatAdd(int dim, const float *A, const float *B, float *C)
 
     const unsigned int BLOCK_SIZE = TILE_SIZE;
 	
-    /*************************************************************************/
-    //INSERT CODE HERE
+    dim3 dim_block(BLOCK_SIZE);
+    dim3 dim_grid((dim+BLOCK_SIZE-1) / BLOCK_SIZE, (dim+BLOCK_SIZE-1) / BLOCK_SIZE);
 
-    /*************************************************************************/
-	
 	// Invoke CUDA kernel -----------------------------------------------------
-
-    /*************************************************************************/
-    //INSERT CODE HERE
-	
-    /*************************************************************************/
+    matAdd<<<dim_grid, dim_block>>>(dim, A, B, C);
 
 }
 

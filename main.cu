@@ -51,21 +51,19 @@ int main (int argc, char *argv[])
     printf("Allocating device variables..."); fflush(stdout);
     startTime(&timer);
 
-    /*************************************************************************/
-    //INSERT CODE HERE
+    cudaMalloc((void**)&A_d, sizeof(float)*mat_sz);
+    cudaMalloc((void**)&B_d, sizeof(float)*mat_sz);
+    cudaMalloc((void**)&C_d, sizeof(float)*mat_sz);
 
-    /*************************************************************************/
     cudaDeviceSynchronize();
     stopTime(&timer); printf("%f s\n", elapsedTime(timer));
-
     // Copy host variables to device ------------------------------------------
     printf("Copying data from host to device..."); fflush(stdout);
     startTime(&timer);
 	
-    /*************************************************************************/
-    //INSERT CODE HERE
+    cudaMemcpy(A_d, A_h, sizeof(float)*mat_sz, cudaMemcpyHostToDevice);
+    cudaMemcpy(B_d, B_h, sizeof(float)*mat_sz, cudaMemcpyHostToDevice);
 
-    /*************************************************************************/
     cudaDeviceSynchronize();
     stopTime(&timer); printf("%f s\n", elapsedTime(timer));
 
@@ -82,10 +80,8 @@ int main (int argc, char *argv[])
     printf("Copying data from device to host..."); fflush(stdout);
     startTime(&timer);
 
-    /*************************************************************************/
-    //INSERT CODE HERE
+    cudaMemcpy(C_h, C_d, sizeof(float)*mat_sz, cudaMemcpyDeviceToHost);
 
-    /*************************************************************************/
     cudaDeviceSynchronize();
     stopTime(&timer); printf("%f s\n", elapsedTime(timer));
 
@@ -101,11 +97,11 @@ int main (int argc, char *argv[])
     free(A_h);
     free(B_h);
     free(C_h);
-
-    /*************************************************************************/
-    //INSERT CODE HERE
-    
-    /*************************************************************************/
+  
+    cudaFree(A_d);
+    cudaFree(B_d);
+    cudaFree(C_d);
+   
     return 0;
 }
 
